@@ -11,3 +11,9 @@ prism/bin/
 # scratch/ is Hans's own: notes and the daily standup, not part of the
 # repository. Nothing here reads it.
 scratch/
+
+# Battery RAM the emulator writes next to a test ROM when a test target runs
+# it (gameboy-tobu-test and friends) - generated output, not a reference. The
+# committed reference_*.sav files live in prism/ and wayfarer/, so this rule
+# is scoped to test_roms/ rather than ignoring *.sav everywhere.
+test_roms/**/*.sav
