@@ -407,7 +407,7 @@ SDL_PKGS := sdl2
 SDL_CFLAGS := $(shell pkg-config --cflags $(SDL_PKGS) 2>/dev/null) -I$(SRC_DIR)
 SDL_LIBS := $(shell pkg-config --libs $(SDL_PKGS) 2>/dev/null)
 
-.PHONY: all gameboy gameboy-test gameboy-visual-test gameboy-cgb-visual-test gameboy-2048-test gameboy-droneboy-test gameboy-tobu-test gameboy-rgbds-test gameboy-rgbds-mbc3-test gameboy-rgbds-hdma-test gameboy-prism-build gameboy-wayfarer-build gameboy-ascent-build gameboy-savestate-test gameboy-mooneye-test gameboy-sdl clean
+.PHONY: all gameboy test gameboy-test gameboy-visual-test gameboy-cgb-visual-test gameboy-2048-test gameboy-droneboy-test gameboy-tobu-test gameboy-rgbds-test gameboy-rgbds-mbc3-test gameboy-rgbds-hdma-test gameboy-prism-build gameboy-wayfarer-build gameboy-ascent-build gameboy-savestate-test gameboy-mooneye-test gameboy-sdl clean
 
 all: gameboy
 
@@ -419,6 +419,15 @@ gameboy-test: $(TEST_TARGET) $(TEST_TIMER_TARGET) $(TEST_APU_TARGET) $(TEST_CPU_
 	./$(TEST_APU_TARGET)
 	./$(TEST_CPU_TARGET)
 	./$(TEST_SAVESTATE_TARGET)
+
+# `test` is an alias for gameboy-test, not a target of its own. Tooling that
+# does not know this project's names -- and anyone arriving from a repo where
+# the suite is `make test` -- looks for this name first; without it a passing
+# suite reads as an absent one. The ROM-based regressions
+# (gameboy-visual-test and the byte-exact game tests below) are deliberately
+# not folded in: they are slower and they are the ones worth naming
+# individually when one of them is what you are chasing.
+test: gameboy-test
 
 gameboy-visual-test: $(TARGET)
 	./$(TARGET) $(VISUAL_ROM) --ppm $(VISUAL_OUT) --frames 2

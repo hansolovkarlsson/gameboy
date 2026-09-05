@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Start here
+
+`scratch/daily-standup.md` — written at the end of the previous working day to
+be read at the start of the next: where the tree was left, what went in, and
+what is outstanding. `scratch/` is gitignored and is not part of this
+repository, so the file is absent on a fresh clone and on any day that was not
+closed out. When it is absent, `git log` and the documents named below are the
+way in.
+
 ## Project
 
 A Game Boy emulator written in C - both the original DMG (the 1989
@@ -18,7 +27,8 @@ genuinely compared against or modeled on that project's own approach -
 those citations are accurate as "this is the real prior art", just no
 longer "elsewhere in this same repo".
 
-Three docs live in `docs/`: `GAMEBOY_ROADMAP.md` (project status by
+Three reference docs live in `docs/` (the day-to-day records are the
+section below): `GAMEBOY_ROADMAP.md` (project status by
 phase - what's done, what's next, and the honest reasoning/evidence
 behind every fix, not just a checklist), `CPU_REFERENCE.md` (the SM83
 instruction set, including how and where it genuinely differs from a
@@ -29,10 +39,31 @@ guessed). This file (`CLAUDE.md`) covers build/run/test commands and
 day-to-day conventions; read the roadmap for *why* something is
 implemented the way it is.
 
+## The records
+
+In `docs/`: **`GAMEBOY_ROADMAP.md` is two records in one file** — its `Phases`
+section is what is left, its `Status` section is what exists and the evidence
+for it, and that section also holds every postmortem entry written before
+`POSTMORTEM.md` was split out. `POSTMORTEM.md` scores mistakes and predictions
+from that point on. **`work-journal/` is a directory** — a day gets a new dated
+file in it, not an append to a single page. `CHANGELOG.md` says when something
+shipped, for a reader who is not reading the source.
+
+Each of those opens with a note stating its own job. That note is the
+specification for what belongs in it — follow it over any general instruction.
+The journal's note lives once in `work-journal/README.md` rather than in every
+dated file.
+
+These four are `nav_exclude`d in `docs/_config.yml`: `docs/` is the published
+GitHub Pages site, so anything added there is built and reachable even when it
+is not in the sidebar. Write them for whoever works on the emulator, and assume
+they can be read.
+
 ## Build & Run
 
 ```
 make                    # builds bin/gameboy (the core --ppm/--wav/--input driver)
+make test               # alias for gameboy-test -- the name tooling looks for
 make gameboy-test       # build + run every direct, ROM-independent unit test
 make gameboy-visual-test    # dmg-acid2: render a frame, compare pixel-for-pixel
 make gameboy-2048-test      # 2048-gb: scripted play, byte-exact frame regression

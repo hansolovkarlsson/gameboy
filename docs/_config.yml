@@ -4,7 +4,11 @@
 # (GAMEBOY_ROADMAP.md, CPU_REFERENCE.md, HARDWARE_REFERENCE.md) are
 # rendered too (jekyll-optional-front-matter is a GitHub Pages
 # default) but kept out of the sidebar via the defaults block below
-# rather than by editing the files themselves.
+# rather than by editing the files themselves. The project's own
+# records (POSTMORTEM.md, CHANGELOG.md, work-journal/) are excluded the
+# same way: they are written for whoever works on the emulator, not for
+# the guide's readers. nav_exclude only hides a page from the sidebar --
+# it is still built and still reachable by URL and by site search.
 title: Build a Game Boy Emulator
 description: >-
   A step-by-step guide to writing a Game Boy (DMG) emulator in C,
@@ -40,5 +44,17 @@ defaults:
       nav_exclude: true
   - scope:
       path: "HARDWARE_REFERENCE.md"
+    values:
+      nav_exclude: true
+  - scope:
+      path: "POSTMORTEM.md"
+    values:
+      nav_exclude: true
+  - scope:
+      path: "CHANGELOG.md"
+    values:
+      nav_exclude: true
+  - scope:
+      path: "work-journal"
     values:
       nav_exclude: true

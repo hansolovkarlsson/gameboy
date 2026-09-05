@@ -7,3 +7,7 @@ tests/__pycache__/
 *.state
 prism/toolchain/
 prism/bin/
+
+# scratch/ is Hans's own: notes and the daily standup, not part of the
+# repository. Nothing here reads it.
+scratch/
